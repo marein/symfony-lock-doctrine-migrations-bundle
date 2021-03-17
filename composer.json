@@ -1,0 +1,38 @@
+{
+  "name": "marein/symfony-lock-doctrine-migrations-bundle",
+  "description": "Perform concurrent doctrine migrations safely.",
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Markus Reinhold",
+      "email": "markusreinhold@icloud.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Marein\\LockDoctrineMigrationsBundle\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Marein\\LockDoctrineMigrationsBundle\\Tests\\": "tests"
+    }
+  },
+  "require": {
+    "php": "^8.0",
+    "doctrine/dbal": "^2.12",
+    "doctrine/doctrine-bundle": "^2.2",
+    "doctrine/doctrine-migrations-bundle": "^3.0",
+    "symfony/config": "^5.2",
+    "symfony/console": "^5.2",
+    "symfony/dependency-injection": "^5.2",
+    "symfony/http-foundation": "^5.2"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.5",
+    "phpstan/phpstan": "^0.12.81",
+    "phpunit/phpunit": "^9.5",
+    "symfony/framework-bundle": "^5.2"
+  }
+}

@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: master
+  pull_request:
+
+jobs:
+  pipeline:
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+        php-version: ['8.0']
+        doctrine-dbal-version: ['^2.12']
+    name: ${{ matrix.php-version }} with doctrine-dbal ${{ matrix.doctrine-dbal-version }}
+    runs-on: ${{ matrix.operating-system }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: pdo_mysql, pdo_pgsql
+
+      - name: Prepare
+        run: composer install
+
+      - name: Testsuite
+        run: |
+          vendor/bin/phpcs
+          vendor/bin/phpstan analyse
+          docker run \
+            --name mysql-8.0 \
+            --env MYSQL_ROOT_PASSWORD=password \
+            --publish 3306:3306 \
+            --detach \
+            mysql:8.0
+          docker run \
+            --name postgres-13.2 \
+            --env POSTGRES_PASSWORD=password \
+            --publish 5432:5432 \
+            --detach \
+            postgres:13.2
+          vendor/bin/phpunit
+          docker rm -f mysql-8.0
+          docker rm -f postgres-13.2

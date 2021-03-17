@@ -1,0 +1,17 @@
+parameters:
+  paths:
+    - src
+  level: max
+  ignoreErrors:
+    -
+      message: '#^Call to an undefined method [^:]+::children\(\)\.$#'
+      path: src/DependencyInjection/Configuration.php
+      count: 1
+    -
+      message: '#^Method [^\s]+ has parameter [^\s]+ with no value type specified in iterable type array\.$#'
+      path: src/DependencyInjection/MareinLockDoctrineMigrationsExtension.php
+      count: 1
+    -
+      message: '#^Cannot cast array<string>|bool|string|null to string\.$#'
+      path: src/EventListener/LockMigrationsListener.php
+      count: 1
