@@ -1,10 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Marein\LockDoctrineMigrationsBundle\Tests\Integration;
 
 use Doctrine\DBAL\Cache\QueryCacheProfile;
 use Doctrine\DBAL\Connection as DbalConnection;
+use Throwable;
 
 final class ConnectionTestDouble extends DbalConnection
 {
@@ -17,7 +19,7 @@ final class ConnectionTestDouble extends DbalConnection
     {
         try {
             parent::connect();
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             sleep(1);
             $this->connect();
         }
