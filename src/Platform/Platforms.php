@@ -1,10 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Marein\LockDoctrineMigrationsBundle\Platform;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\DBAL\Connection;
+use Exception;
 
 final class Platforms
 {
@@ -41,7 +43,7 @@ final class Platforms
             $platformName = $connection->getDatabasePlatform()->getName();
 
             return ($this->platformFactories[$platformName] ?? $this->fallbackPlatformFactory)($connection);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new PlatformException($e->getMessage(), $e->getCode(), $e);
         }
     }
