@@ -15,3 +15,15 @@ parameters:
       message: '#^Cannot cast array<string>|bool|string|null to string\.$#'
       path: src/EventListener/LockMigrationsListener.php
       count: 1
+    -
+      message: '#^Cannot cast mixed to int\.$#'
+      path: src/Platform/MysqlPlatform.php
+      count: 2
+    -
+      message: '#^Cannot cast mixed to int\.$#'
+      path: src/Platform/Platforms.php
+      count: 1
+    -
+      message: '#^Cannot cast mixed to int\.$#'
+      path: src/Platform/PostgresqlPlatform.php
+      count: 2

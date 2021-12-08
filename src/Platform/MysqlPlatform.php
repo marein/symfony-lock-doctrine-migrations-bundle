@@ -24,7 +24,7 @@ final class MysqlPlatform implements Platform
                 [$name]
             );
         } catch (Exception $e) {
-            throw new PlatformException($e->getMessage(), $e->getCode(), $e);
+            throw new PlatformException($e->getMessage(), (int)$e->getCode(), $e);
         }
     }
 
@@ -36,7 +36,7 @@ final class MysqlPlatform implements Platform
                 [$name]
             );
         } catch (Exception $e) {
-            throw new PlatformException($e->getMessage(), $e->getCode(), $e);
+            throw new PlatformException($e->getMessage(), (int)$e->getCode(), $e);
         }
     }
 }

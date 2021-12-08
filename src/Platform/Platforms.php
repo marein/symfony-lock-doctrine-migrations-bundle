@@ -44,7 +44,7 @@ final class Platforms
 
             return ($this->platformFactories[$platformName] ?? $this->fallbackPlatformFactory)($connection);
         } catch (Exception $e) {
-            throw new PlatformException($e->getMessage(), $e->getCode(), $e);
+            throw new PlatformException($e->getMessage(), (int)$e->getCode(), $e);
         }
     }
 
