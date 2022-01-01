@@ -30,8 +30,8 @@
     "symfony/http-foundation": "^5.2"
   },
   "require-dev": {
-    "squizlabs/php_codesniffer": "^3.5",
-    "phpstan/phpstan": "^0.12.81",
+    "squizlabs/php_codesniffer": "^3.6",
+    "phpstan/phpstan": "^1.3",
     "phpunit/phpunit": "^9.5",
     "symfony/framework-bundle": "^5.2"
   }
