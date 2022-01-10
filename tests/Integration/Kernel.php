@@ -46,7 +46,7 @@ final class Kernel extends BaseKernel
         return '/tmp/' . $this->uniqueId . '/log';
     }
 
-    public function registerBundles()
+    public function registerBundles(): iterable
     {
         return [
             new FrameworkBundle(),
