@@ -16,8 +16,8 @@ jobs:
         doctrine-bundle-version: ['^2.2']
         doctrine-migrations-bundle-version: ['^3.0']
     name: >-
-      ${{ matrix.php-version }}
-      with sf ${{ matrix.symfony-version }},
+      ${{ matrix.php-version }} with
+      sf ${{ matrix.symfony-version }},
       dbal ${{ matrix.doctrine-dbal-version }},
       d-bun ${{ matrix.doctrine-bundle-version }},
       d-mig-bun ${{ matrix.doctrine-migrations-bundle-version }}
