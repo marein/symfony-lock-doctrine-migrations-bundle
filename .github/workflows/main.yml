@@ -17,10 +17,10 @@ jobs:
         doctrine-migrations-bundle-version: ['^3.0']
     name: >-
       ${{ matrix.php-version }}
-      with symfony ${{ matrix.symfony-version }}
-      and doctrine-dbal ${{ matrix.doctrine-dbal-version }}
-      and doctrine-bundle ${{ matrix.doctrine-bundle-version }}
-      and doctrine-migrations-bundle ${{ matrix.doctrine-migrations-bundle-version }}
+      with sf ${{ matrix.symfony-version }}
+      and doc-dbal ${{ matrix.doctrine-dbal-version }}
+      and doc-bundle ${{ matrix.doctrine-bundle-version }}
+      and doc-mig-bundle ${{ matrix.doctrine-migrations-bundle-version }}
     runs-on: ${{ matrix.operating-system }}
     steps:
       - name: Checkout
