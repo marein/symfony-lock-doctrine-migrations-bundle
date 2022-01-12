@@ -21,7 +21,7 @@
   },
   "require": {
     "php": "^8.0",
-    "doctrine/dbal": "^2.13 || ^3.0",
+    "doctrine/dbal": "^2.12 || ^3.0",
     "doctrine/doctrine-bundle": "^2.2",
     "doctrine/doctrine-migrations-bundle": "^3.0",
     "symfony/config": "^5.2 || ^6.0",

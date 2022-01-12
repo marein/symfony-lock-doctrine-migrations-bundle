@@ -4,18 +4,11 @@ declare(strict_types=1);
 
 namespace Marein\LockDoctrineMigrationsBundle\Tests\Integration;
 
-use Doctrine\DBAL\Cache\QueryCacheProfile;
 use Doctrine\DBAL\Connection as DbalConnection;
-use Doctrine\DBAL\Result;
 use Throwable;
 
 final class ConnectionTestDouble extends DbalConnection
 {
-    /**
-     * @var array<int, mixed>
-     */
-    public array $executedQueryCalls = [];
-
     public function connect()
     {
         try {
@@ -24,12 +17,5 @@ final class ConnectionTestDouble extends DbalConnection
             sleep(1);
             $this->connect();
         }
-    }
-
-    public function executeQuery($sql, array $params = [], $types = [], ?QueryCacheProfile $qcp = null): Result
-    {
-        $this->executedQueryCalls[] = [$sql, $params];
-
-        return parent::executeQuery($sql, $params, $types, $qcp);
     }
 }

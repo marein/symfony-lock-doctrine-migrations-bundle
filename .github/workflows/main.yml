@@ -12,7 +12,7 @@ jobs:
         operating-system: [ubuntu-latest]
         php-version: ['8.0']
         symfony-version: ['^5.2', '^6.0']
-        doctrine-dbal-version: ['^2.13', '^3.0']
+        doctrine-dbal-version: ['^2.12', '^3.0']
         doctrine-bundle-version: ['^2.2']
         doctrine-migrations-bundle-version: ['^3.0']
     name: >-
