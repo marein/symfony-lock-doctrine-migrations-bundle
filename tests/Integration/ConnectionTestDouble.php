@@ -6,6 +6,7 @@ namespace Marein\LockDoctrineMigrationsBundle\Tests\Integration;
 
 use Doctrine\DBAL\Cache\QueryCacheProfile;
 use Doctrine\DBAL\Connection as DbalConnection;
+use Doctrine\DBAL\Result;
 use Throwable;
 
 final class ConnectionTestDouble extends DbalConnection
@@ -25,7 +26,7 @@ final class ConnectionTestDouble extends DbalConnection
         }
     }
 
-    public function executeQuery($sql, array $params = [], $types = [], ?QueryCacheProfile $qcp = null)
+    public function executeQuery($sql, array $params = [], $types = [], ?QueryCacheProfile $qcp = null): Result
     {
         $this->executedQueryCalls[] = [$sql, $params];
 
