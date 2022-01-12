@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Marein\LockDoctrineMigrationsBundle\Tests\Integration;
 
+use Doctrine\DBAL\Logging\DebugStack;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\ApplicationTester;
@@ -20,10 +21,18 @@ final class DoctrineMigrationMigrateTest extends TestCase
      */
     public function itShouldLock(array $bundleConfiguration, string $connectionName, array $expectedQueryCalls)
     {
-        $application = new Application(
-            (new Kernel($bundleConfiguration))
-        );
+        $kernel = new Kernel($bundleConfiguration);
+        $kernel->boot();
+
+        $application = new Application($kernel);
         $application->setAutoExit(false);
+
+        $sqlLogger = new DebugStack();
+        $kernel
+            ->getContainer()
+            ->get('doctrine.dbal.' . $connectionName . '_connection')
+            ->getConfiguration()
+            ->setSQLLogger($sqlLogger);
 
         $applicationTester = new ApplicationTester($application);
 
@@ -43,10 +52,10 @@ final class DoctrineMigrationMigrateTest extends TestCase
             ]
         );
 
-        $actualQueryCalls = $application->getKernel()
-            ->getContainer()
-            ->get('doctrine.dbal.' . $connectionName . '_connection')
-            ->executedQueryCalls;
+        $actualQueryCalls = array_map(
+            fn(array $queryCall): array => [$queryCall['sql'], $queryCall['params']],
+            $sqlLogger->queries
+        );
 
         foreach ($expectedQueryCalls as $expectedQueryCall) {
             self::assertTrue(
