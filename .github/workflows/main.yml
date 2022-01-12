@@ -11,8 +11,16 @@ jobs:
       matrix:
         operating-system: [ubuntu-latest]
         php-version: ['8.0']
+        symfony-version: ['^5.2', '^6.0']
         doctrine-dbal-version: ['^2.12']
-    name: ${{ matrix.php-version }} with doctrine-dbal ${{ matrix.doctrine-dbal-version }}
+        doctrine-bundle-version: ['^2.2']
+        doctrine-migrations-bundle-version: ['^3.0']
+    name: >-
+      ${{ matrix.php-version }} with
+      sf ${{ matrix.symfony-version }},
+      dbal ${{ matrix.doctrine-dbal-version }},
+      d-bun ${{ matrix.doctrine-bundle-version }},
+      d-mig-bun ${{ matrix.doctrine-migrations-bundle-version }}
     runs-on: ${{ matrix.operating-system }}
     steps:
       - name: Checkout
@@ -25,7 +33,20 @@ jobs:
           extensions: pdo_mysql, pdo_pgsql
 
       - name: Prepare
-        run: composer install
+        run: |
+          composer install
+          composer require \
+            symfony/config:${{ matrix.symfony-version }} \
+            symfony/console:${{ matrix.symfony-version }} \
+            symfony/dependency-injection:${{ matrix.symfony-version }} \
+            symfony/http-foundation:${{ matrix.symfony-version }} \
+            symfony/http-kernel:${{ matrix.symfony-version }} \
+            symfony/framework-bundle:${{ matrix.symfony-version }} \
+            doctrine/dbal:${{ matrix.doctrine-dbal-version }} \
+            doctrine/doctrine-bundle:${{ matrix.doctrine-bundle-version }} \
+            doctrine/doctrine-migrations-bundle:${{ matrix.doctrine-migrations-bundle-version }} \
+            --update-with-dependencies \
+            --no-interaction
 
       - name: Testsuite
         run: |
