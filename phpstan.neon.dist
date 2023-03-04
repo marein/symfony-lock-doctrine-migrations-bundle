@@ -2,6 +2,7 @@ parameters:
   paths:
     - src
   level: max
+  reportUnmatchedIgnoredErrors: false
   ignoreErrors:
     -
       message: '#^Call to an undefined method [^:]+::children\(\)\.$#'
