@@ -16,3 +16,5 @@ parameters:
       message: '#^Cannot cast array<string>|bool|string|null to string\.$#'
       path: src/EventListener/LockMigrationsListener.php
       count: 1
+    -
+      message: '#^Class Doctrine\\DBAL\\Platforms\\.*Platform not found\.$#'

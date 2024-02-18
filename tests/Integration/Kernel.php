@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Marein\LockDoctrineMigrationsBundle\Tests\Integration;
 
+use Composer\InstalledVersions;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
 use Doctrine\Migrations\Configuration\Connection\ConnectionRegistryConnection;
@@ -70,11 +71,11 @@ final class Kernel extends BaseKernel
                     'connections' => [
                         'mysql' => [
                             'url' => 'mysql://root:password@127.0.0.1:3306/db',
-                            'wrapper_class' => ConnectionTestDouble::class
+                            'wrapper_class' => $this->getDoctrineConnectionWrapperClass()
                         ],
                         'pgsql' => [
                             'url' => 'pgsql://postgres:password@127.0.0.1:5432/db',
-                            'wrapper_class' => ConnectionTestDouble::class
+                            'wrapper_class' => $this->getDoctrineConnectionWrapperClass()
                         ]
                     ]
                 ]
@@ -98,5 +99,16 @@ final class Kernel extends BaseKernel
             ->decorate('doctrine.migrations.connection_loader')
             ->factory([ConnectionRegistryConnection::class, 'withSimpleDefault'])
             ->args([new Reference('doctrine')]);
+    }
+
+    private function getDoctrineConnectionWrapperClass(): string
+    {
+        preg_match('/^(\d+)\./', (string)InstalledVersions::getVersion('doctrine/dbal'), $matches);
+
+        return match ($matches[1] ?? null) {
+            '2' => ConnectionDbal2TestDouble::class,
+            '3' => ConnectionDbal3TestDouble::class,
+            default => ConnectionDbal4TestDouble::class
+        };
     }
 }
