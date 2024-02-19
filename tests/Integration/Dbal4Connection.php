@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Marein\LockDoctrineMigrationsBundle\Tests\Integration;
 
 use Doctrine\DBAL\Cache\QueryCacheProfile;
-use Doctrine\DBAL\Connection as DbalConnection;
-use Doctrine\DBAL\Driver\Connection;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Driver\Connection as DriverConnection;
 use Doctrine\DBAL\Result;
 use Throwable;
 
-final class ConnectionDbal4TestDouble extends DbalConnection
+final class Dbal4Connection extends Connection
 {
     public array $loggedQueries = [];
 
-    public function connect(): Connection
+    public function connect(): DriverConnection
     {
         try {
             return parent::connect();

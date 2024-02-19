@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Marein\LockDoctrineMigrationsBundle\Tests\Integration;
 
 use Doctrine\DBAL\Cache\QueryCacheProfile;
-use Doctrine\DBAL\Connection as DbalConnection;
+use Doctrine\DBAL\Connection;
 use Throwable;
 
-final class ConnectionDbal2TestDouble extends DbalConnection
+final class Dbal2Connection extends Connection
 {
     public array $loggedQueries = [];
 

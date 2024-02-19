@@ -106,9 +106,9 @@ final class Kernel extends BaseKernel
         preg_match('/^(\d+)\./', (string)InstalledVersions::getVersion('doctrine/dbal'), $matches);
 
         return match ($matches[1] ?? null) {
-            '2' => ConnectionDbal2TestDouble::class,
-            '3' => ConnectionDbal3TestDouble::class,
-            default => ConnectionDbal4TestDouble::class
+            '2' => Dbal2Connection::class,
+            '3' => Dbal3Connection::class,
+            default => Dbal4Connection::class
         };
     }
 }
