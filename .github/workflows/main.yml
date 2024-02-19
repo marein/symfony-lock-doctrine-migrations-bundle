@@ -12,7 +12,7 @@ jobs:
         operating-system: [ubuntu-latest]
         php-version: ['8.0', '8.1', '8.2', '8.3']
         symfony-version: ['^5.2', '^6.0', '^7.0']
-        doctrine-dbal-version: ['^2.12', '^3.0']
+        doctrine-dbal-version: ['^2.12', '^3.0', '^4.0']
         doctrine-bundle-version: ['^2.2']
         doctrine-migrations-bundle-version: ['^3.0']
         exclude:
@@ -20,6 +20,8 @@ jobs:
             symfony-version: '^7.0'
           - php-version: '8.1'
             symfony-version: '^7.0'
+          - php-version: '8.0'
+            doctrine-dbal-version: '^4.0'
           - symfony-version: '^7.0'
             doctrine-dbal-version: '^2.12'
     name: >-

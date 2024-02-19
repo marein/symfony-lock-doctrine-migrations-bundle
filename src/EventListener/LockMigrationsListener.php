@@ -12,14 +12,10 @@ use Symfony\Component\Console\Event\ConsoleTerminateEvent;
 
 final class LockMigrationsListener
 {
-    private Platforms $platforms;
-
-    private string $lockNamePrefix;
-
-    public function __construct(Platforms $platforms, string $lockNamePrefix)
-    {
-        $this->platforms = $platforms;
-        $this->lockNamePrefix = $lockNamePrefix;
+    public function __construct(
+        private Platforms $platforms,
+        private string $lockNamePrefix
+    ) {
     }
 
     /**

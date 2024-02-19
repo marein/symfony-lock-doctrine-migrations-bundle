@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Marein\LockDoctrineMigrationsBundle\Tests\Integration;
 
-use Doctrine\DBAL\Logging\DebugStack;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\ApplicationTester;
@@ -27,12 +26,9 @@ final class DoctrineMigrationMigrateTest extends TestCase
         $application = new Application($kernel);
         $application->setAutoExit(false);
 
-        $sqlLogger = new DebugStack();
-        $kernel
+        $connection = $kernel
             ->getContainer()
-            ->get('doctrine.dbal.' . $connectionName . '_connection')
-            ->getConfiguration()
-            ->setSQLLogger($sqlLogger);
+            ->get('doctrine.dbal.' . $connectionName . '_connection');
 
         $applicationTester = new ApplicationTester($application);
 
@@ -54,7 +50,7 @@ final class DoctrineMigrationMigrateTest extends TestCase
 
         $actualQueryCalls = array_map(
             fn(array $queryCall): array => [$queryCall['sql'], $queryCall['params']],
-            $sqlLogger->queries
+            $connection->loggedQueries
         );
 
         foreach ($expectedQueryCalls as $expectedQueryCall) {

@@ -9,11 +9,9 @@ use Exception;
 
 final class MysqlPlatform implements Platform
 {
-    private Connection $connection;
-
-    public function __construct(Connection $connection)
-    {
-        $this->connection = $connection;
+    public function __construct(
+        private Connection $connection
+    ) {
     }
 
     public function acquireLock(string $name): void
