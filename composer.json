@@ -32,7 +32,7 @@
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "3.6.1",
-    "phpstan/phpstan": "1.10.50",
+    "phpstan/phpstan": "1.12.23",
     "phpunit/phpunit": "^9.5",
     "symfony/framework-bundle": "^5.2 || ^6.0 || ^7.0"
   },
