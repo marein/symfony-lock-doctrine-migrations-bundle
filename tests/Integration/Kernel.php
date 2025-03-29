@@ -71,10 +71,12 @@ final class Kernel extends BaseKernel
                     'connections' => [
                         'mysql' => [
                             'url' => 'mysql://root:password@127.0.0.1:3306/db',
+                            'server_version' => '8.0',
                             'wrapper_class' => $this->getDoctrineConnectionWrapperClass()
                         ],
                         'pgsql' => [
                             'url' => 'pgsql://postgres:password@127.0.0.1:5432/db',
+                            'server_version' => '13.2',
                             'wrapper_class' => $this->getDoctrineConnectionWrapperClass()
                         ]
                     ]
