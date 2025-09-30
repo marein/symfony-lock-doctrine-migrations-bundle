@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Marein\LockDoctrineMigrationsBundle\EventListener;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Marein\LockDoctrineMigrationsBundle\Platform\PlatformException;
 use Marein\LockDoctrineMigrationsBundle\Platform\Platforms;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
@@ -14,7 +15,8 @@ final class LockMigrationsListener
 {
     public function __construct(
         private Platforms $platforms,
-        private string $lockNamePrefix
+        private string $lockNamePrefix,
+        private ManagerRegistry $registry
     ) {
     }
 
@@ -59,7 +61,11 @@ final class LockMigrationsListener
 
     private function getConnectionName(ConsoleEvent $event): string
     {
-        return (string)$event->getInput()->getOption('conn');
+        if ('' === $connectionName = (string) $event->getInput()->getOption('conn')) {
+            return $this->registry->getDefaultConnectionName();
+        }
+
+        return $connectionName;
     }
 
     private function getLockName(string $connectionName): string
