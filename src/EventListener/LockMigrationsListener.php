@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Marein\LockDoctrineMigrationsBundle\EventListener;
 
 use Doctrine\Migrations\DependencyFactory;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Marein\LockDoctrineMigrationsBundle\Platform\PlatformException;
 use Marein\LockDoctrineMigrationsBundle\Platform\Platforms;
