@@ -21,7 +21,8 @@ return static function (ContainerConfigurator $container) {
             [
                 service('marein_lock_doctrine_migrations.platform.platforms'),
                 null,
-                service('doctrine')
+                service('doctrine'),
+                service('doctrine.migrations.dependency_factory')
             ]
         )
         ->tag('kernel.event_listener', ['event' => ConsoleEvents::COMMAND])

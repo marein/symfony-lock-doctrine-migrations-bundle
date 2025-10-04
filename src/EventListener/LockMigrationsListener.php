@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Marein\LockDoctrineMigrationsBundle\EventListener;
 
+use Doctrine\Migrations\DependencyFactory;
 use Doctrine\Persistence\ManagerRegistry;
 use Marein\LockDoctrineMigrationsBundle\Platform\PlatformException;
 use Marein\LockDoctrineMigrationsBundle\Platform\Platforms;
@@ -16,7 +17,8 @@ final class LockMigrationsListener
     public function __construct(
         private Platforms $platforms,
         private string $lockNamePrefix,
-        private ManagerRegistry $registry
+        private ManagerRegistry $registry,
+        private DependencyFactory $dependencyFactory
     ) {
     }
 
@@ -61,11 +63,30 @@ final class LockMigrationsListener
 
     private function getConnectionName(ConsoleEvent $event): string
     {
-        if ('' === $connectionName = (string) $event->getInput()->getOption('conn')) {
-            return $this->registry->getDefaultConnectionName();
+        $connectionName = (string) $event->getInput()->getOption('conn');
+
+        if ('' === $connectionName) {
+            return $this->getEntityManagerConnectionName($this->dependencyFactory->getEntityManager())
+                ?? $this->dependencyFactory->getConfiguration()->getConnectionName()
+                ?? $this->registry->getDefaultConnectionName();
         }
 
         return $connectionName;
+    }
+
+    private function getEntityManagerConnectionName(EntityManagerInterface $entityManager): ?string
+    {
+        $connectionName = $entityManager->getConnection();
+
+        foreach ($this->registry->getConnections() as $name => $connection) {
+            if ($connection !== $connectionName) {
+                continue;
+            }
+
+            return $name;
+        }
+
+        return null;
     }
 
     private function getLockName(string $connectionName): string
