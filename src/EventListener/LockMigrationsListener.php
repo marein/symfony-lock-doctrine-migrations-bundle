@@ -20,7 +20,8 @@ final class LockMigrationsListener
         private Platforms $platforms,
         private string $lockNamePrefix,
         private ManagerRegistry $registry,
-        private DependencyFactory $dependencyFactory
+        private DependencyFactory $dependencyFactory,
+        private ?string $doctrineMigrationsPreferredConnection = null
     ) {
     }
 
@@ -83,7 +84,7 @@ final class LockMigrationsListener
                 : null;
 
             return $connectionName
-                ?? $this->dependencyFactory->getConfiguration()->getConnectionName()
+                ?? $this->doctrineMigrationsPreferredConnection
                 ?? $this->registry->getDefaultConnectionName();
         }
 

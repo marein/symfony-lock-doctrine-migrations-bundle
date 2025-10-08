@@ -9,6 +9,7 @@ use Marein\LockDoctrineMigrationsBundle\Platform\Platforms;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
+use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return static function (ContainerConfigurator $container) {
@@ -22,7 +23,8 @@ return static function (ContainerConfigurator $container) {
                 service('marein_lock_doctrine_migrations.platform.platforms'),
                 null,
                 service('doctrine'),
-                service('doctrine.migrations.dependency_factory')
+                service('doctrine.migrations.dependency_factory'),
+                param('doctrine.migrations.preferred_connection')
             ]
         )
         ->tag('kernel.event_listener', ['event' => ConsoleEvents::COMMAND])
