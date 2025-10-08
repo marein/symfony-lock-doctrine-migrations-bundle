@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Marein\LockDoctrineMigrationsBundle\EventListener;
 
 use Doctrine\Migrations\DependencyFactory;
-use Doctrine\Migrations\Configuration\EntityManager;
 use Doctrine\Migrations\Exception\MissingDependency;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
