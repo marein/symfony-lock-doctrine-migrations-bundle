@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Marein\LockDoctrineMigrationsBundle\EventListener;
 
 use Doctrine\Migrations\DependencyFactory;
+use Doctrine\Migrations\Configuration\EntityManager;
+use Doctrine\Migrations\Exception\MissingDependency;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Marein\LockDoctrineMigrationsBundle\Platform\PlatformException;
@@ -67,7 +69,21 @@ final class LockMigrationsListener
         $connectionName = (string) $event->getInput()->getOption('conn');
 
         if ('' === $connectionName) {
-            return $this->getEntityManagerConnectionName($this->dependencyFactory->getEntityManager())
+            try {
+                $entityManager = $this->dependencyFactory->getEntityManager();
+            } catch (MissingDependency $e) {
+                if ($e->getMessage() !== MissingDependency::noEntityManager()->getMessage()) {
+                    throw $e;
+                }
+
+                $entityManager = null;
+            }
+
+            $connectionName = $entityManager
+                ? $this->getEntityManagerConnectionName($entityManager)
+                : null;
+
+            return $connectionName
                 ?? $this->dependencyFactory->getConfiguration()->getConnectionName()
                 ?? $this->registry->getDefaultConnectionName();
         }
