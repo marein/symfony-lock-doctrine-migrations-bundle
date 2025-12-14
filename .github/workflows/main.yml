@@ -23,6 +23,9 @@ jobs:
           - { php-version: '8.2', symfony-version: '^8.0' }
           - { php-version: '8.3', symfony-version: '^8.0' }
           - { php-version: '8.0', doctrine-migrations-bundle-version: '^4.0' }
+          - { php-version: '8.1', doctrine-migrations-bundle-version: '^4.0' }
+          - { php-version: '8.2', doctrine-migrations-bundle-version: '^4.0' }
+          - { php-version: '8.3', doctrine-migrations-bundle-version: '^4.0' }
           - { php-version: '8.0', doctrine-dbal-version: '^4.0' }
           - { symfony-version: '^7.0', doctrine-dbal-version: '^2.12' }
           - { php-version: '8.0', doctrine-bundle-version: '^3.0' }
