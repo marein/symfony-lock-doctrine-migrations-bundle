@@ -35,6 +35,8 @@ jobs:
           - { php-version: '8.1', doctrine-bundle-version: '^3.0' }
           - { php-version: '8.2', doctrine-bundle-version: '^3.0' }
           - { php-version: '8.3', doctrine-bundle-version: '^3.0' }
+          - { doctrine-bundle-version: '^3.0', doctrine-dbal-version: '^2.12' }
+          - { doctrine-bundle-version: '^3.0', doctrine-dbal-version: '^3.0' }
           - { symfony-version: '^5.2', doctrine-bundle-version: '^3.0' }
     name: >-
       ${{ matrix.php-version }} with
