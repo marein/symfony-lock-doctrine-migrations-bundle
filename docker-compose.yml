@@ -1,0 +1,27 @@
+services:
+  mysql:
+    image: mysql:8.0
+    network_mode: host
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+  postgres:
+    image: postgres:13.2
+    network_mode: host
+    environment:
+      POSTGRES_PASSWORD: password
+  php:
+    build:
+      dockerfile_inline: |
+        FROM php:${PHP_VERSION:-8.5}-cli
+        RUN apt-get update \
+         && apt-get install -y --no-install-recommends libpq-dev git unzip \
+         && docker-php-ext-install pdo_mysql pdo_pgsql \
+         && rm -rf /var/lib/apt/lists/*
+        COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+        WORKDIR /project
+    network_mode: host
+    depends_on:
+      - mysql
+      - postgres
+    volumes:
+      - .:/project
