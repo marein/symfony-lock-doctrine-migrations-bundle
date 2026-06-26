@@ -9,6 +9,9 @@ parameters:
       path: src/DependencyInjection/Configuration.php
       count: 1
     -
+      message: '#^Cannot call method [a-zA-Z]+\(\) on mixed\.$#'
+      path: src/DependencyInjection/Configuration.php
+    -
       message: '#^Method [^\s]+ has parameter [^\s]+ with no value type specified in iterable type array\.$#'
       path: src/DependencyInjection/MareinLockDoctrineMigrationsExtension.php
       count: 1
@@ -18,3 +21,6 @@ parameters:
       count: 1
     -
       message: '#^Class Doctrine\\DBAL\\Platforms\\.*Platform not found\.$#'
+    -
+      message: '#^Call to function method_exists\(\) with [^\s]+ and ''getName'' will always evaluate to true\.$#'
+      path: src/Platform/Platforms.php

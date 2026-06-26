@@ -10,20 +10,36 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        php-version: ['8.0', '8.1', '8.2', '8.3', '8.4']
-        symfony-version: ['^5.2', '^6.0', '^7.0']
+        php-version: ['8.0', '8.1', '8.2', '8.3', '8.4', '8.5']
+        symfony-version: ['^5.2', '^6.0', '^7.0', '^8.0']
         doctrine-dbal-version: ['^2.12', '^3.0', '^4.0']
-        doctrine-bundle-version: ['^2.2']
-        doctrine-migrations-bundle-version: ['^3.0']
+        doctrine-bundle-version: ['^2.2', '^3.0']
+        doctrine-migrations-bundle-version: ['^3.0', '^4.0']
         exclude:
-          - php-version: '8.0'
-            symfony-version: '^7.0'
-          - php-version: '8.1'
-            symfony-version: '^7.0'
-          - php-version: '8.0'
-            doctrine-dbal-version: '^4.0'
-          - symfony-version: '^7.0'
-            doctrine-dbal-version: '^2.12'
+          - { php-version: '8.0', symfony-version: '^6.0' }
+          - { php-version: '8.0', symfony-version: '^7.0' }
+          - { php-version: '8.1', symfony-version: '^7.0' }
+          - { php-version: '8.0', symfony-version: '^8.0' }
+          - { php-version: '8.1', symfony-version: '^8.0' }
+          - { php-version: '8.2', symfony-version: '^8.0' }
+          - { php-version: '8.3', symfony-version: '^8.0' }
+          - { php-version: '8.0', doctrine-migrations-bundle-version: '^4.0' }
+          - { php-version: '8.1', doctrine-migrations-bundle-version: '^4.0' }
+          - { php-version: '8.2', doctrine-migrations-bundle-version: '^4.0' }
+          - { php-version: '8.3', doctrine-migrations-bundle-version: '^4.0' }
+          - { doctrine-migrations-bundle-version: '^4.0', doctrine-dbal-version: '^2.12' }
+          - { doctrine-migrations-bundle-version: '^4.0', doctrine-dbal-version: '^3.0' }
+          - { doctrine-migrations-bundle-version: '^4.0', doctrine-bundle-version: '^2.2' }
+          - { php-version: '8.0', doctrine-dbal-version: '^4.0' }
+          - { symfony-version: '^7.0', doctrine-dbal-version: '^2.12' }
+          - { php-version: '8.0', doctrine-bundle-version: '^3.0' }
+          - { php-version: '8.1', doctrine-bundle-version: '^3.0' }
+          - { php-version: '8.2', doctrine-bundle-version: '^3.0' }
+          - { php-version: '8.3', doctrine-bundle-version: '^3.0' }
+          - { doctrine-bundle-version: '^3.0', doctrine-dbal-version: '^2.12' }
+          - { doctrine-bundle-version: '^3.0', doctrine-dbal-version: '^3.0' }
+          - { doctrine-bundle-version: '^2.2', symfony-version: '^8.0' }
+          - { symfony-version: '^5.2', doctrine-bundle-version: '^3.0' }
     name: >-
       ${{ matrix.php-version }} with
       sf ${{ matrix.symfony-version }},
